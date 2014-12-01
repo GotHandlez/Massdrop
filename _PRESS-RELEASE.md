@@ -18,27 +18,39 @@ Once the project moves into development, the press release can be used as a touc
  
 ## Heading ##
   > Name the product in a way the reader (i.e. your target customers) will understand.
+  MaxPoints
 
 ## Sub-Heading ##
   > Describe who the market for the product is and what benefit they get. One sentence only underneath the title.
+  The market consists of users with certain travel rewards credit cards that frequently use points to redeem hotel nights or airplane flights.
 
 ## Summary ##
   > Give a summary of the product and the benefit. Assume the reader will not read anything else so make this paragraph good.
+  This web service will provide users a convenient way of discovering what awards are available to them based on their rewards credit cards and destination of travel. 
 
 ## Problem ##
   > Describe the problem your product solves.
+  When users travelling to some specific location have so many credit cards and amassed points, oftentimes they need to tediously check each individual hotel/airline's website to make an the most informed decision. 
 
 ## Solution ##
   > Describe how your product elegantly solves the problem.
+  This service centralizes all the users' credit card points so that they can see what is available to them at their travel destinations.
 
 ## Quote from You ##
   > A quote from a spokesperson in your company.
+  "This is madness! Now you can let MaxPoints determine what awards are available to you at your travel destination rather than spending hours researching yourself!"
 
 ## How to Get Started ##
   > Describe how easy it is to get started.
+  Select rewards credit card from a pre-populated, pre-approved list.
+  Input the number of points.
+  Enter location of travel, and dates
+  Search!
 
 ## Customer Quote ##
   > Provide a quote from a hypothetical customer that describes how they experienced the benefit.
+  "Wow! This is so convenient! This app saved me hours of tedious research in finding which hotel I'll be staying at in LA! Highly recommended!"
 
 ## Closing and Call to Action ##
   > Wrap it up and give pointers where the reader should go next.
+  Personal credit card information is not needed, so the service contains little to no risk in using. Due to the higher security, users should keep track and update the number of points they have inside the app.
