@@ -1,0 +1,213 @@
+body {
+  margin: 0;
+  margin-top: 10px;
+  font-family: arial, sans-serif;
+  background-color: rgb(249, 80, 80);
+}
+
+#add a {
+  color: #333;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+h1{
+  text-align: center;
+  margin-bottom: 10px;
+  color: #333333;
+  font-family: ‘Palatino Linotype’, ‘Book Antiqua’, Palatino, serif;
+}
+
+h2 {
+  color: #333333;
+  font-family: ‘Palatino Linotype’, ‘Book Antiqua’, Palatino, serif;
+}
+
+button { 
+width: 150px;
+border: 0;
+vertical-align: -4px;
+text-transform: uppercase;
+font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+font-weight: 300;
+font-size: 22px;
+color: white;
+padding: 14px 10px 10px 10px;
+margin: 10px 0px 0px 0px;
+background-color: #1D181B;
+}
+
+button:hover {
+  text-shadow: 0 1px 0 rgba(255,255,255,.1), 0 0 30px rgba(255,255,255,.4);
+  color: #ffffff;
+  opacity: 1;
+}
+
+.navigation {
+  width: 100%;
+  height: 40px;
+  background-color: #eee;
+}
+
+.navigation ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.navigation li {
+  float: left;
+}
+
+.navigation li a {
+  width: 100px;
+  height: 20px;
+  line-height: 20px;
+  padding: 10px;
+  display: block;
+  text-align: center;
+}
+
+th {
+  text-align: center;
+}
+.navigation li a:hover {
+  background-color: #ddd;
+}
+
+.navigation li a.selected {
+  background-color: #ccc;
+}
+
+#container {
+  clear: both;
+  padding:20px;
+  margin-top: 10px;
+}
+
+.link {
+  clear: both;
+  margin-bottom: 5px;
+  padding: 5px;
+  min-height: 50px;
+}
+
+.link:hover {
+  background-color: #efe;
+}
+
+.link img {
+  float: left;
+  margin: 0 5px;
+}
+
+.link .visits {
+  float: right;
+  margin-right: 10px;
+  margin-left: 20px;
+}
+
+.link .visits .count {
+  font-size: 46px;
+  font-weight: 600;
+}
+
+.link .title {
+  font-weight: 600;
+}
+
+.link .original {
+  color: #aaa;
+  font-size: 12px;
+}
+
+.link .info {
+  margin-left: 55px;
+}
+
+form {
+  margin: 10px;
+}
+
+input {
+  width: 360px;
+  display: block;
+  font-size: 13px;
+  padding: 5px;
+  margin-bottom: 5px;
+  text-align: center;
+  position: relative;
+  display: block;
+  margin : 0 auto;
+}
+
+input[type=url] {
+  display: inline
+}
+
+input[type=url]:focus {
+  outline: none;
+}
+
+
+.error {
+  border: red solid 4px;
+  padding: 10px;
+  margin: 0 10px;
+}
+
+.clean {
+  border: #efe solid 2px;
+  padding: 10px;
+  margin: 0 10px;
+}
+
+.creator {
+  height: 50px;
+}
+
+.creator form {
+  float: left;
+  height: 80px;
+}
+
+.creator img.spinner {
+  height: 46px;
+  margin-bottom: 5px;
+  padding: 10px;
+  display: none;
+}
+
+.creator .message {
+  clear: both;
+}
+
+#signin {
+  text-align: center;
+}
+
+#signup {
+  text-align: center;
+}
+
+#add {
+  text-align: center;
+}
+
+#hotel {
+  text-align: center;
+}
+
+#results {
+  text-align: center;
+}
+
+#cardList {
+  width: 360px;
+  font-size: 13px;
+  padding: 5px;
+  margin-bottom: 5px;
+  position: relative;
+  margin: 0 auto;  
+}
+

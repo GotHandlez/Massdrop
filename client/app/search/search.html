@@ -1,0 +1,8 @@
+<div id='hotel' ng-controller="SearchController">
+	<h1>Free Nights Fast</h1> <br/><br/><br/><br/>
+	<h2>Search</h2> 
+  <form name="searchForm" ng-submit="search()" novalidate>
+  	Location: <input type='text' class='locBox' name="locBox"  required ng-model="loc" typeahead="aLoc for aLoc in locations | filter:$viewValue"> <br/>
+    <button type="submit">Do it!</button>
+  </form>
+</div>

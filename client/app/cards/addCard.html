@@ -1,0 +1,15 @@
+<div id='add' ng-controller="AddCardsController">
+	<h1>Free Nights Fast</h1> <br/><br/><br/><br/>
+	<h2>Add Card</h2>
+	<form name="addForm" ng-submit='addCard()' novalidate>
+	  Card: <input type='text' name='cardBox'  required ng-model='card' typeahead="aCard for aCard in cards | filter:$viewValue"> <br/>
+
+  	<alert id='cardList' ng-repeat="aCard in personalCards" type="{{aCard}}" close="deleteCard($index)"> {{aCard}}</alert> <br/>
+
+	  Points: <input type="text" name='ptsBox' required ng-model='points'> <br/>
+	  <button type="submit">Add Card</button>
+	</form>
+	Or...
+	<a ui-sref="search"> Begin Search </a>
+
+</div>

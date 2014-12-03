@@ -1,0 +1,16 @@
+<div id='signin' ng-controller='AuthController'>
+  <h1>Free Nights Fast</h1> <br/><br/><br/><br/>
+  <h2>Welcome!</h2> <br/>
+  <form name="signinForm" ng-submit='signin(signinForm.$valid)' novalidate>
+    <label class="control-label" for="inputSuccess4">Username</label>
+    <input type='text' name='userBox' required ng-model='user.username' id="inputSuccess5" aria-describedby="inputSuccess5Status"> 
+    <br/>
+    <p ng-show="signinForm.userBox.$error.required && submitted">Username is required.</p>
+    <label class="control-label" for="inputSuccess4">Password</label>
+    <input type="password" name='pwdBox' required ng-model='user.password'> <br/>
+     <p ng-show="signinForm.pwdBox.$error.required && submitted">Password is required.</p>
+    <br/>
+    <button type="submit">Sign In</button>
+  </form>
+  <a ui-sref="signup">Don't have an account? <strong>Signup</strong> now</a>
+</div>
