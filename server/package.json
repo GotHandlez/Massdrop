@@ -1,11 +1,11 @@
 {
-  "name": "Free Nights Fast!",
+  "name": "FreeNightsFast",
   "version": "0.0.1",
   "description": "MVP project",
   "license": "Proprietary",
   "private": true,
   "scripts": {
-    "start": "./node_modules/.bin/nodemon --ignore node_modules server.js",
+    "start": "./node_modules/.bin/nodemon --ignore node_modules server.js"
   },
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
