@@ -1,14 +1,11 @@
 {
-  "name": "shortly-express",
+  "name": "Free Nights Fast!",
   "version": "0.0.1",
-  "description": "shortly using express",
-  "main": "shortly.js",
-  "repository": "",
+  "description": "MVP project",
   "license": "Proprietary",
   "private": true,
   "scripts": {
-    "start": "./node_modules/.bin/nodemon --ignore node_modules shortly.js",
-    "test": "node shortly.js& ./node_modules/.bin/mocha --bail --reporter nyan test/ServerSpec.js; pkill -n node;"
+    "start": "./node_modules/.bin/nodemon --ignore node_modules server.js",
   },
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
