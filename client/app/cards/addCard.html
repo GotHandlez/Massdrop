@@ -6,13 +6,13 @@
 	<form name="addForm" ng-submit='addCard()' novalidate>
 	  Card: <input type='text' name='cardBox'  required ng-model='card' typeahead="aCard for aCard in cards | filter:$viewValue"> <br/>
 
-  	<alert id='cardList' ng-repeat="aCard in personalCards" type="{{aCard}}" close="deleteCard($index)"> {{aCard}}
+  	<alert id='cardList' ng-repeat="aCard in personalCards" type="danger" close="deleteCard($index)"> {{aCard}}
   	</alert> <br/>
 
 	  Points: <input type="text" name='ptsBox' required ng-model='points'> <br/>
 	  <button type="submit">Add Card</button>
 	</form>
 	Or...
-	<a ui-sref="search"> Begin Search </a>
+	<a class="appLink" ui-sref="search"> Begin Search </a>
 
 </div>

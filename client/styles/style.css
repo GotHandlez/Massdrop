@@ -5,10 +5,10 @@ body {
   /*background-color: rgb(249, 80, 80);*/
 }
 
-#add a {
+.appLink {
   color: #333;
   font-size: 14px;
-  text-decoration: none;
+  text-decoration: underline;
 }
 
 h1{
@@ -41,6 +41,11 @@ button:hover {
   text-shadow: 0 1px 0 rgba(255,255,255,.1), 0 0 30px rgba(255,255,255,.4);
   color: #ffffff;
   opacity: 1;
+}
+
+.alert-dismissable .close {
+  width: 21px;
+  top: -10px;
 }
 
 .navigation {
@@ -203,11 +208,9 @@ input[type=url]:focus {
 }
 
 #cardList {
-  width: px;
-  font-size: 13px;
-  padding: 5px;
-  margin-bottom: 5px;
+  width: 360px;
+  margin-bottom: 10px;
   position: relative;
-  margin: 0 auto;  
+  margin: 0 auto 10px auto;  
 }
 
