@@ -13,7 +13,7 @@ angular.module('untitled.auth', [])
     if(valid) {
       Auth.signin($scope.user)
         .then(function (token) {
-          $window.localStorage.setItem('com.shortly', token);
+          $window.localStorage.setItem('com.points', token);
           $location.path('/add');
         })
         .catch(function (error) {
