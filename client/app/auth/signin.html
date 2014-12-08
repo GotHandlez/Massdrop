@@ -6,13 +6,14 @@
     <input type='text' name='userBox' required ng-model='user.username' id="inputSuccess5" aria-describedby="inputSuccess5Status">
 
     <br/>
-    <p ng-show="signinForm.userBox.$error.required && submitted">Username is required.</p>
-    
+    <!-- <p ng-show="signinForm.userBox.$error.required && submitted">Username is required.</p> -->
+
     <label class="control-label" for="inputSuccess4">PASSWORD</label>
     <input type="password" name='pwdBox' required ng-model='user.password'>
-    
+
      <br/>
-     <p ng-show="signinForm.pwdBox.$error.required && submitted">Password is required.</p>
+     <!-- <p ng-show="signinForm.pwdBox.$error.required && submitted">Password is required.</p> -->
+     <p ng-show="!isAuth() && submitted">Username and/or password is invalid.</p>
     <br/>
     <button type="submit">Sign In</button>
   </form>

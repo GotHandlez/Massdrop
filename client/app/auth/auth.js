@@ -4,22 +4,27 @@
 angular.module('untitled.auth', [])
 
 .controller('AuthController', function ($scope, $window, $location, Auth) {
+  angular.extend($scope, Auth);
   $scope.user = {};
-  $scope.submitted = false;
-  $scope.signupSubmitted = false;
+  // $scope.isAuth = true;
 
   $scope.signin = function (valid) {
     $scope.submitted = true;
+    $scope.signout();
+    console.log($scope.isAuth());
     if(valid) {
       Auth.signin($scope.user)
         .then(function (token) {
+          console.log(token);
           $window.localStorage.setItem('com.points', token);
           $location.path('/add');
-        })
-        .catch(function (error) {
+        }, 
+        function (error) {
+          $scope.isAuth = false;
           console.error(error);
-        });
+      });
     }
+    // $scope.isAuth = false;
   };
 
   $scope.signup = function (valid) {
@@ -27,11 +32,11 @@ angular.module('untitled.auth', [])
     if(valid) {
       Auth.signup($scope.user)
         .then(function (token) {
-          console.log('made it to signup');
           $window.localStorage.setItem('com.points', token);
           $location.path('/signin');
         })
         .catch(function (error) {
+          // $scope.isAuth = false;
           console.error(error);
         });
     }

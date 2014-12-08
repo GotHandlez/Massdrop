@@ -108,6 +108,9 @@ angular.module('untitled.services', [])
   }
 })
 .factory('Auth', function ($http, $location, $window) {
+  var submitted = false;
+  var signupSubmitted = false;
+
   var signin = function (user) {
     return $http({
       method: 'POST',
@@ -145,7 +148,9 @@ angular.module('untitled.services', [])
     signin: signin,
     signup: signup,
     isAuth: isAuth,
-    signout: signout
+    signout: signout,
+    submitted:submitted,
+    signupSubmitted: signupSubmitted
 
   };
 });

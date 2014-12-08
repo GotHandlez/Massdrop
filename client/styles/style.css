@@ -19,7 +19,7 @@ h1{
 }
 
 h2 {
-  color: #333333;
+  color: #F51E1E;
   font-family: ‘Palatino Linotype’, ‘Book Antiqua’, Palatino, serif;
 }
 
@@ -203,7 +203,7 @@ input[type=url]:focus {
 }
 
 #cardList {
-  width: 360px;
+  width: px;
   font-size: 13px;
   padding: 5px;
   margin-bottom: 5px;
