@@ -1,7 +1,7 @@
 angular.module('untitled.services', [])
 
 .factory('AddCard', function ($http, $location) {
-  var cards = [
+  var allCards = [
   'Citi Hilton HHonors Visa Signature',
   'American Express Hilton HHonors',
   'American Express Hilton HHonors Surpass',
@@ -14,6 +14,9 @@ angular.module('untitled.services', [])
   ];
 
   var personalCards = {};
+  var selectedCard = "";
+  var points = "";
+  var cardToDelete = "";
 
   var addCard = function(card, points) {
     personalCards[card] = card;
@@ -32,10 +35,13 @@ angular.module('untitled.services', [])
   }
 
   return {
-    cards: cards,
+    allCards: allCards,
     addCard: addCard,
     personalCards: personalCards,
-    getCards: getCards
+    getCards: getCards,
+    selectedCard: selectedCard,
+    points: points,
+    cardToDelete: cardToDelete
   }
 })
 .factory('Results', function() {
@@ -76,7 +82,7 @@ angular.module('untitled.services', [])
   }
 })
 .factory('Search', function () {
-  var place = 'Los Angeles, CA';
+  var place = {loc:""};
   var locations = [
   'Los Angeles, CA', 'San Francisco, CA',
   'San Diego, CA', 'Irvine, CA', 'Cerritos, CA',
@@ -96,8 +102,8 @@ angular.module('untitled.services', [])
   }
 
   var recordLoc = function(loc) {
-    place = loc;
-    console.log(place);
+    place.loc = loc;
+    // console.log(place);
   }
 
   return {

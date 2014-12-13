@@ -1,15 +1,17 @@
-<div id='add' ng-controller="AddCardsController">
+<div id='add'>
 	<h1>Free Nights Fast</h1> <br/><br/><br/><br/>
 
 	<h2>Add Card</h2>
 
-	<form name="addForm" ng-submit='addCard()' novalidate>
-	  Card: <input type='text' name='cardBox'  required ng-model='card' typeahead="aCard for aCard in cards | filter:$viewValue"> <br/>
+	<form name="addForm" ng-submit='addCard(points > 0 && allCards.indexOf(selectedCard.trim()) >= 0)' novalidate>
+	  Card: <input type='text' name='cardBox'  required ng-model='selectedCard' typeahead="aCard for aCard in allCards | filter:$viewValue"> <br/>
 
   	<alert id='cardList' ng-repeat="aCard in personalCards" type="danger" close="deleteCard($index)"> {{aCard}}
   	</alert> <br/>
 
 	  Points: <input type="text" name='ptsBox' required ng-model='points'> <br/>
+	  <p ng-if="(points < 0 || allCards.indexOf(selectedCard.trim()) < 0) && submitted">Please enter a valid card and the number of points.</p>
+
 	  <button type="submit">Add Card</button>
 	</form>
 	Or...

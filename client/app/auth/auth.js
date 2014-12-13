@@ -11,7 +11,7 @@ angular.module('untitled.auth', [])
   $scope.signin = function (valid) {
     $scope.submitted = true;
     $scope.signout();
-    console.log($scope.isAuth());
+
     if(valid) {
       Auth.signin($scope.user)
         .then(function (token) {

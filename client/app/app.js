@@ -13,27 +13,33 @@ angular.module('untitled', [
   $stateProvider
     .state('signup', {
       url:'/signup',
-      templateUrl: 'app/auth/signup.html'
+      templateUrl: 'app/auth/signup.html',
+      controller: 'AuthController'
     })
     .state('index', {
       url:'/',
-      templateUrl: '../signin.html'
+      templateUrl: 'app/auth/signin.html',
+      controller: 'AuthController'
     })
     .state('add', {
       url:'/add',
-      templateUrl: 'app/cards/addCard.html'
+      templateUrl: 'app/cards/addCard.html',
+      controller: 'AddCardsController'
     })
     .state('signin', {
       url:'/signin',
-      templateUrl: 'app/auth/signin.html'
+      templateUrl: 'app/auth/signin.html',
+      controller: 'AuthController'
     })
      .state('search', {
       url:'/search',
-      templateUrl: 'app/search/search.html'
+      templateUrl: 'app/search/search.html',
+      controller: 'SearchController'
     })
      .state('results', {
       url:'/results',
-      templateUrl: 'app/results/results.html'
+      templateUrl: 'app/results/results.html',
+      controller: 'ResultsController'
     });
 
     // We add our $httpInterceptor into the array
