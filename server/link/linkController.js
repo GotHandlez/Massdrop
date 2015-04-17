@@ -27,7 +27,7 @@ module.exports = {
     var jobId = req.query.jobId;
     console.log('getLink has jobId of ', jobId);
     kue.redis.createClient().get(jobId, function (err, reply) {
-      if(err) {
+      if(!reply) {
         //if not done, send back processing status
         //or if specific link does not exist
         var that = err;
@@ -43,8 +43,7 @@ module.exports = {
         //if done, send back html
         res.send(reply);
       }
-    });
-    
+    }); 
   },
 
   postLink: function (req, res) {
@@ -54,12 +53,10 @@ module.exports = {
     //check if link has been added already to the queue
     jobs.activeCount(function(err,count){
       if(!err) {
-console.log('count? ', count);
         kue.Job.rangeByState('active', 0, count, 'asc', function(err, totalJobs) {
           if(err) {
             res.send(err);
           }
-console.log('totalJobs? ', totalJobs.length);
 
           for(var i = 0; i < totalJobs.length; i++) {
             if(totalJobs[i].data.id === jobId) {
