@@ -7,7 +7,6 @@ var http = require('http');
 
 var app = express();
 mongoose.connect('mongodb://localhost/MyApp');
-
 require('../server/config/middleware.js')(app, express);
 
 var jobs = kue.createQueue({
@@ -22,9 +21,10 @@ var jobs = kue.createQueue({
   disableSearch: true	
 });
 
-jobs.process('new job', function (job, done){
+jobs.process('new job', 20, function (job, done){
 	console.log('job is processing');
-  // carry out all the job function here
+
+  // fetching html of web page
   var options = {
       host: job.data.name,
       path: '/'
@@ -44,6 +44,7 @@ jobs.process('new job', function (job, done){
   request.on('error', function (e) {
       console.log(e.message);
   });
+  
   request.end();
 });
 

@@ -13,104 +13,111 @@ var jobs = kue.createQueue({
   disableSearch: true
 });
 
-var hashingFunction = function(str) {
-  var jobId = 0;
-  for(var i = 0; i < str.length; i++) {
-    jobId += (str.charCodeAt(i)-65) * 2;
-  }
+// var hashingFunction = function(str) {
+//   var jobId = 0;
+//   for(var i = 0; i < str.length; i++) {
+//     jobId += (str.charCodeAt(i)-65) * 2;
+//   }
 
-  return jobId;
-}
+//   return jobId;
+// }
 
 module.exports = {
   getLink: function (req, res) {
     var jobId = req.query.jobId;
-    console.log('getLink has jobId of ', jobId);
-    kue.redis.createClient().get(jobId, function (err, reply) {
-      if(!reply) {
-        //if not done, send back processing status
-        //or if specific link does not exist
-        var that = err;
-        Links.findOne({jobId: jobId}, function(err, link) {
-          if(link) {
-            res.send(link.content);
-          } else {
-            res.send(that);
+
+    //check if content is in the database
+    Links.findOne({jobId: jobId}, function(err, link) {
+      if(link) {
+        //if yes, send content
+        res.send(link.content);
+      } else {
+        //if not, check queue to find status
+        kue.Job.get(jobId, function(error, job) {
+          if(job) {
+            job
+              .on('failed', function (){
+                res.send('Job', jobId, 'with name', job.data.name, 'has failed');
+              })
+              .on('progress', function(progress, data){
+                res.send('\r  job #' + jobId + ' ' + progress + '% complete with data ', data);
+              })
+              .on('complete', function (){
+                res.send('Job', jobId, 'with name', job.data.name, 'is done');
+              });
+          }
+          else {
+            if(error) {
+              res.send(error);
+            }
+            else {
+              res.send("job id does not exist!");
+            }
           }
         });
-      } else {
-      //check if jobId is done processing
-        //if done, send back html
-        res.send(reply);
       }
-    }); 
+    });
+     
   },
 
   postLink: function (req, res) {
-    var link = req.body.data.replace('http://','').replace('https://','').replace('www.','');
-    var jobId = hashingFunction(link);
-
-    //check if link has been added already to the queue
-    jobs.activeCount(function(err,count){
-      if(!err) {
-        kue.Job.rangeByState('active', 0, count, 'asc', function(err, totalJobs) {
-          if(err) {
-            res.send(err);
-          }
-
-          for(var i = 0; i < totalJobs.length; i++) {
-            if(totalJobs[i].data.id === jobId) {
-              //if so, then return jobId associated with link
-              res.send(jobId);
-            }
-          }
-          //add link to job queue for future processing
-          var job = jobs.create('new job', {
-              name: link,
-              id: jobId
-          }).priority('high').attempts(5);
-          // job.id = jobId;
-
-          job
-            .on('complete', function (htmlContent){
-              //save html content in cache
-              kue.redis.createClient().set(jobId, htmlContent);
-
+    var link = req.body.data.replace('http://','').replace('https://','')/*.replace('www.','')*/;
+    kue.redis.createClient().get(link, function(err, jobId) {
+      //check if link has been added already to the queue
+      if(jobId) {
+        //check if link has been added already to the queue
+        kue.Job.get(jobId, function (err, job) {
+          if(job) {
+            console.log("link has already been posted!");
+            res.send(jobId);
+          } else {
+              //add link to job queue for future processing
+              var job = jobs.create('new job', {
+                  name: link
+              }).priority('high').attempts(5);
               
-              //save html content in database
-              Links.findOne({jobId: jobId}, function(err, link) {
-                if(!link) {
-                  new Links({name: job.data.name, jobId: jobId, content: htmlContent}).save(function(e) {
-                    job.remove(function(err){
-                      if (err) throw err;
-                      console.log('removed completed job #%d', jobId);
-                    });
+              //e.g. 'www.google.com' -> 4
+              //if 'www.google.com' is POST'ed again, I could look up job id
+              kue.redis.createClient().set(link, job.id);
 
-                    res.send(jobId);
+              job
+                .on('complete', function (htmlContent){
+                  kue.redis.createClient().del(link, function(err, deleted){
+                    console.log(link + " entry deleted!");
                   });
-                }
-              });
 
+                  //save html content in database
+                  Links.findOne({jobId: job.id}, function(err, link) {
+                    if(!link) {
+                      new Links({name: job.data.name, jobId: job.id, content: htmlContent}).save(function(e) {
+                        //remove job from queue once completed
+                        job.remove(function(err){
+                          if (err) throw err;
+                          console.log('removed completed job #%d', job.id);
+                        });
 
-              console.log('Job', jobId, 'with name', job.data.name, 'is done');
-            })
-            .on('failed', function (){
-              console.log('Job', jobId, 'with name', job.data.name, 'has failed');
-            })
-            .on('progress', function(progress, data){
-              console.log('\r  job #' + jobId + ' ' + progress + '% complete with data ', data );
+                        //return job id to client
+                        res.send(job.id);
+                      });
+                    }
+                  });
 
-            })
-            .save(function(err){
-              if(!err) {
-                console.log('*******', jobId, job.data.name);
-
-                //return jobId
-                res.send(jobId);
-              }
-            });
-          
-        });
+                  console.log('Job', job.id, 'with name', job.data.name, 'is done');
+                })
+                .on('failed', function (){
+                  console.log('Job', job.id, 'with name', job.data.name, 'has failed');
+                })
+                .on('progress', function(progress, data){
+                  console.log('\r  job #' + job.id + ' ' + progress + '% complete with data ', data );
+                })
+                .save(function(err){
+                  if(!err) {
+                    //return job id
+                    res.send(job.id);
+                  }
+                });
+            }
+          });
       }
     });
   }
