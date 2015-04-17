@@ -6,8 +6,9 @@ var redis = require('redis');
 var http = require('http');
 
 var app = express();
+mongoose.connect('mongodb://localhost/MyApp');
+
 require('../server/config/middleware.js')(app, express);
-// mongoose.connect('mongodb://localhost/MyApp');
 
 var jobs = kue.createQueue({
 	prefix: 'q',

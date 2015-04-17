@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var LinkSchema = new mongoose.Schema({
+var LinkSchema = new Schema({
   name: {
     type: String,
     required: true,
