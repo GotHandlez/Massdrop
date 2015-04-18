@@ -13,15 +13,6 @@ var jobs = kue.createQueue({
   disableSearch: true
 });
 
-// var hashingFunction = function(str) {
-//   var jobId = 0;
-//   for(var i = 0; i < str.length; i++) {
-//     jobId += (str.charCodeAt(i)-65) * 2;
-//   }
-
-//   return jobId;
-// }
-
 module.exports = {
   getLink: function (req, res) {
     var jobId = req.query.jobId;
@@ -35,24 +26,10 @@ module.exports = {
         //if not, check queue to find status
         kue.Job.get(jobId, function(error, job) {
           if(job) {
-            job
-              .on('failed', function (){
-                res.send('Job', jobId, 'with name', job.data.name, 'has failed');
-              })
-              .on('progress', function(progress, data){
-                res.send('\r  job #' + jobId + ' ' + progress + '% complete with data ', data);
-              })
-              .on('complete', function (){
-                res.send('Job', jobId, 'with name', job.data.name, 'is done');
-              });
+            res.send("job-id " + jobId + " is " + job._progress + "% complete!\n");
           }
           else {
-            if(error) {
-              res.send(error);
-            }
-            else {
-              res.send("job id does not exist!");
-            }
+            res.send("job-id " + jobId + " does not exist!\n");
           }
         });
       }
@@ -63,8 +40,6 @@ module.exports = {
   postLink: function (req, res) {
     var link = req.body.data.replace('http://','').replace('https://','')/*.replace('www.','')*/;
     kue.redis.createClient().get(link, function(err, jobId) {
-      //check if link has been added already to the queue
-      if(jobId) {
         //check if link has been added already to the queue
         kue.Job.get(jobId, function (err, job) {
           if(job) {
@@ -78,7 +53,9 @@ module.exports = {
               
               //e.g. 'www.google.com' -> 4
               //if 'www.google.com' is POST'ed again, I could look up job id
-              kue.redis.createClient().set(link, job.id);
+              kue.redis.createClient().set(link, job.id, function (err, didSet) {
+                console.log(didSet); // true
+              });
 
               job
                 .on('complete', function (htmlContent){
@@ -118,7 +95,6 @@ module.exports = {
                 });
             }
           });
-      }
     });
   }
 };
