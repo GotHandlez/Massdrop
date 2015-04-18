@@ -27,8 +27,7 @@ module.exports = {
         kue.Job.get(jobId, function(error, job) {
           if(job) {
             res.send("job-id " + jobId + " is " + job._progress + "% complete!\n");
-          }
-          else {
+          } else {
             res.send("job-id " + jobId + " does not exist!\n");
           }
         });
@@ -69,7 +68,9 @@ module.exports = {
                       new Links({name: job.data.name, jobId: job.id, content: htmlContent}).save(function(e) {
                         //remove job from queue once completed
                         job.remove(function(err){
-                          if (err) throw err;
+                          if (err)  {
+                            throw err;
+                          }
                           console.log('removed completed job #%d', job.id);
                         });
 
