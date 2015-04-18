@@ -42,8 +42,7 @@ module.exports = {
         //check if link has been added already to the queue
         kue.Job.get(jobId, function (err, job) {
           if(job) {
-            console.log("link has already been posted!");
-            res.send(jobId);
+            res.send("Your job-id is "+ job.id + "!\n");
           } else {
               //add link to job queue for future processing
               var job = jobs.create('new job', {
