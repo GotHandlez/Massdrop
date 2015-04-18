@@ -36,7 +36,6 @@ jobs.process('new job', 20, function (job, done){
           data += chunk;
       });
       res.on('end', function () {
-          console.log('final htmlcontent is: ', data);
           done && done(null, data.toString());
       });
   });
