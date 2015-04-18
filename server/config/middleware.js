@@ -9,7 +9,6 @@ module.exports = function (app, express) {
   app.use(bodyParser.json());
   app.use(express.static(__dirname + '/../../client'));
 
-
   app.use('/api/links', linkRouter);
   require('../link/linkRoutes.js')(linkRouter);
 };

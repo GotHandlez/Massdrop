@@ -22,7 +22,7 @@ var jobs = kue.createQueue({
 });
 
 jobs.process('new job', 20, function (job, done){
-	console.log('job is processing');
+	console.log('job ' + job.id + ' is processing');
 
   // fetching html of web page
   var options = {
@@ -36,6 +36,8 @@ jobs.process('new job', 20, function (job, done){
           data += chunk;
       });
       res.on('end', function () {
+          //data is htmlContent
+          //this will call job.on('complete', fn) in producer thread
           done && done(null, data.toString());
       });
   });
@@ -43,7 +45,7 @@ jobs.process('new job', 20, function (job, done){
   request.on('error', function (e) {
       console.log(e.message);
   });
-  
+
   request.end();
 });
 
