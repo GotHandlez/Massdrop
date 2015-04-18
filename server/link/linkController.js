@@ -73,9 +73,6 @@ module.exports = {
                           }
                           console.log('removed completed job #%d', job.id);
                         });
-
-                        //return job id to client
-                        res.send(job.id);
                       });
                     }
                   });
@@ -91,7 +88,7 @@ module.exports = {
                 .save(function(err){
                   if(!err) {
                     //return job id
-                    res.send(job.id);
+                    res.send("Your job-id is "+ job.id + "!\n");
                   }
                 });
             }
