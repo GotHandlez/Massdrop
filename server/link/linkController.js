@@ -1,17 +1,6 @@
 var Links = require('./linkModel.js');
 var kue = require('kue');
-
-var jobs = kue.createQueue({
-  prefix: 'q',
-  redis: {
-    port: 6379,
-    host: '127.0.0.1',
-    auth: '',
-    options: {
-    }
-  },
-  disableSearch: true
-});
+var jobs = require('../helpers/jobs.js');
 
 module.exports = {
   getLink: function (req, res) {
